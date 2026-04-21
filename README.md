@@ -25,7 +25,7 @@ The results highlight a clear trade-off. **FinBERT** dominates in pure performan
 
 
 ### 1. Performance Visualization (ROC Curves)
-*FinBERT (Right) achieves near-perfect separation for negative sentiment, significantly outperforming the statistical baselines.*
+*FinBERT achieves near-perfect separation for negative sentiment, significantly outperforming the statistical baselines.*
 
 <div align="center">
   <img src="figures/naive_bayes/roc_curve.png" width="45%" alt="Naive Bayes ROC" />
@@ -81,7 +81,7 @@ The Confusion Matrix shows that while FinBERT is superior, the hardest task for 
 ## 💻 Tech Stack
 * **Core:** Python 3.12, Pandas, NumPy
 * **Modeling:** PyTorch, PyMC, ArviZ, Scikit-learn
-* **NLP:** Transformers (Hugging Face), NLTK/Regex
+* **NLP:** Transformers (Hugging Face), Regex
 * **Viz:** Matplotlib, Seaborn
 
 ---
