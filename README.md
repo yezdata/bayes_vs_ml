@@ -21,7 +21,7 @@ The results highlight a clear trade-off. **FinBERT** dominates in pure performan
 | :--- | :---: | :---: | :---: | :--- |
 | **FinBERT (SOTA)** | **0.77** | **0.92** | **0.57** | **Context Awareness** & Calibration |
 | **Bayesian LogReg** | 0.63 | 0.81 | 0.81 | **Explainability** & Uncertainty Quantification |
-| **Naive Bayes** | 60% | 0.79 | 0.97 | Fast Baseline |
+| **Naive Bayes** | 0.60 | 0.79 | 0.97 | Fast Baseline |
 
 
 ### 1. Performance Visualization (ROC Curves)
