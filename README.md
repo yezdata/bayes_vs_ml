@@ -17,11 +17,11 @@ The results highlight a clear trade-off. **FinBERT** dominates in pure performan
 
 The results highlight a clear trade-off. **FinBERT** dominates in pure performance by understanding context, while the **Bayesian model** offers valuable business insights by quantifying exactly *which* words drive sentiment.
 
-| Model | Accuracy | F1-Score (Weighted) | ROC AUC (OvO) | Log Loss | Strength |
-| :--- | :---: | :---: | :---: | :---: | :--- |
-| **FinBERT (SOTA)** | **77%** | **0.77** | **0.92** | **0.57** | **Context Awareness** & Calibration |
-| **Bayesian LogReg** | 63% | 0.63 | 0.81 | 0.81 | **Explainability** & Uncertainty Quantification |
-| **Naive Bayes** | 60% | 0.60 | 0.79 | 0.97 | Fast Baseline |
+| Model | F1-Score (Weighted) | ROC AUC (OvO) | Log Loss | Strength |
+| :--- | :---: | :---: | :---: | :--- |
+| **FinBERT (SOTA)** | **0.77** | **0.92** | **0.57** | **Context Awareness** & Calibration |
+| **Bayesian LogReg** | 0.63 | 0.81 | 0.81 | **Explainability** & Uncertainty Quantification |
+| **Naive Bayes** | 60% | 0.79 | 0.97 | Fast Baseline |
 
 
 ### 1. Performance Visualization (ROC Curves)
