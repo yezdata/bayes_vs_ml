@@ -37,7 +37,7 @@ The results highlight a clear trade-off. **FinBERT** dominates in pure performan
 
 ## 🛠️ Engineering Highlights
 
-### 1. Advanced Feature Engineering (NLP)
+### 1. Feature Engineering (NLP)
 Standard TF-IDF fails with numbers. I implemented a **custom tokenization pipeline** to preserve financial context before vectorization:
 * **Problem:** Algorithms treat "5%" and "2024" as generic numbers.
 * **Solution:** Regex substitution to specific tokens:

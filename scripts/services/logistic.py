@@ -15,11 +15,8 @@ def build_model_struct(X_dense, y, n_features, n_classes):
         intercept = pm.Normal("intercept", mu=0, sigma=1, shape=n_classes)
         betas = pm.Normal("betas", mu=0, sigma=1, shape=(n_features, n_classes))
 
-        # --- LINEÁRNÍ MODEL ---
-        # Maticové násobení: (N x features) dot (features x 3) = (N x 3)
-        # Výsledkem jsou 3 "syrová skóre" pro každý dokument.
+        # --- LINEAR MODEL ---
         raw_scores = intercept + pm.math.dot(X_dense, betas)
-        # Softmax převede skóre na pravděpodobnosti, které dají dohromady 1.0
         p = pm.Deterministic("probs", pm.math.softmax(raw_scores, axis=1))
 
         # --- LIKELIHOOD ---
@@ -28,26 +25,28 @@ def build_model_struct(X_dense, y, n_features, n_classes):
     return logistic_model
 
 
-
-
 # TRAIN
-def train_log_model(X_train, y_train, y_classes, ppc_samples=100, n_iter=1000, n_iter_burn=1000, n_chains=4):
-    # Příprava dat
-    # X musí být dense (ne sparse)
+def train_log_model(
+    X_train,
+    y_train,
+    y_classes,
+    ppc_samples=100,
+    n_iter=1000,
+    n_iter_burn=1000,
+    n_chains=4,
+):
     X_train_dense = X_train.toarray()
     n_samples, n_features = X_train_dense.shape
     n_classes = len(y_classes)
 
-    logistic_model = build_model_struct(X_dense=X_train_dense, y=y_train, n_features=n_features, n_classes=n_classes)
+    logistic_model = build_model_struct(
+        X_dense=X_train_dense, y=y_train, n_features=n_features, n_classes=n_classes
+    )
 
     with logistic_model:
         print("Started Logistic Model MCMC sampling")
         idata = pm.sample(
-            draws=n_iter,
-            tune=n_iter_burn,
-            chains=n_chains,
-            cores=4,
-            random_seed=123
+            draws=n_iter, tune=n_iter_burn, chains=n_chains, cores=4, random_seed=123
         )
 
         print("Saving Logistic Model MCMC samples")
@@ -80,10 +79,7 @@ def test_log_model(X_test, y_classes, y_test=None):
         y_obs = np.zeros(n_samples, dtype=int)
 
     logistic_model = build_model_struct(
-        X_dense=X_test_dense,
-        y=y_obs,
-        n_features=n_features,
-        n_classes=n_classes
+        X_dense=X_test_dense, y=y_obs, n_features=n_features, n_classes=n_classes
     )
 
     with logistic_model:
@@ -95,12 +91,14 @@ def test_log_model(X_test, y_classes, y_test=None):
         )
         # TEST PPC
         if y_test is not None:
-            az.plot_ppc(post_pred_test, num_pp_samples=150, kind='kde')
+            az.plot_ppc(post_pred_test, num_pp_samples=150, kind="kde")
             plt.savefig("figures/logit/ppc_test.png")
             plt.close()
 
-
     # (chains, draws, n_samples, n_classes) -> prumer pres chains a draws -> vysledny tvar bude (n_samples, n_classes) -> sklearn
-    probs = post_pred_test.posterior_predictive["probs"].mean(dim=["chain", "draw"]).values
+    probs = (
+        post_pred_test.posterior_predictive["probs"].mean(dim=["chain", "draw"]).values
+    )
 
     return probs
+

@@ -54,9 +54,10 @@ y_test = le.transform(y_test)
 
 # UCENI TFIDF
 from sklearn.feature_extraction.text import TfidfVectorizer
-tfidf = TfidfVectorizer(max_features=500, ngram_range=(1,2))
+
+tfidf = TfidfVectorizer(max_features=500, ngram_range=(1, 2))
 tfidf.fit(X_train)
-joblib.dump(tfidf, model_path / 'tfidf_vectorizer.pkl')
+joblib.dump(tfidf, model_path / "tfidf_vectorizer.pkl")
 # tfidf = joblib.load(model_path / "tfidf_vectorizer.pkl")
 
 X_train_vec = tfidf.transform(X_train)
@@ -77,6 +78,7 @@ nb_pred = nb_model.predict_proba(X_test_vec)
 # Logistic Regression
 # UCENI LOGIT
 from scripts.services.logistic import train_log_model
+
 idata, post_pred_train = train_log_model(
     X_train_vec,
     y_train,
@@ -84,7 +86,7 @@ idata, post_pred_train = train_log_model(
     ppc_samples=150,
     n_iter=1000,
     n_iter_burn=1000,
-    n_chains=4
+    n_chains=4,
 )
 
 # idata = az.from_netcdf("models/logit/trace.nc")
@@ -124,6 +126,7 @@ logit_pred_class = logit_pred.argmax(axis=1)
 # FinBERT
 # UCENI FINBERT
 from scripts.services.finbert import fine_tune_finbert
+
 fine_tune_finbert(X_train=X_train, y_train=y_train)
 
 
